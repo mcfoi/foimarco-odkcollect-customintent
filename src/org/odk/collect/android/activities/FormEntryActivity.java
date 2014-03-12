@@ -1241,12 +1241,12 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	private void showNextView() {
 		FormController formController = Collect.getInstance()
 				.getFormController();
-			
+
 		// get constraint behavior preference value with appropriate default
 		String constraint_behavior = PreferenceManager.getDefaultSharedPreferences(this)
-			.getString(PreferencesActivity.KEY_CONSTRAINT_BEHAVIOR, 
+			.getString(PreferencesActivity.KEY_CONSTRAINT_BEHAVIOR,
 				PreferencesActivity.CONSTRAINT_BEHAVIOR_DEFAULT);
-		
+
 		if (formController.currentPromptIsQuestion()) {
 
 			// if constraint behavior says we should validate on swipe, do so
@@ -1256,7 +1256,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 					mBeenSwiped = false;
 					return;
 				}
-				
+
 			// otherwise, just save without validating (constraints will be validated on finalize)
 			} else
 				saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
@@ -2007,7 +2007,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 					.logInstanceAction(this, "onCreateDialog.SAVING_DIALOG",
 							"show");
 			mProgressDialog = new ProgressDialog(this);
-			DialogInterface.OnClickListener savingButtonListener = new DialogInterface.OnClickListener() {
+			DialogInterface.OnClickListener cancelSavingButtonListener = new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Collect.getInstance()
@@ -2024,18 +2024,26 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 			mProgressDialog.setIndeterminate(true);
 			mProgressDialog.setCancelable(false);
 			mProgressDialog.setButton(getString(R.string.cancel),
-                    savingButtonListener);
+					cancelSavingButtonListener);
 			mProgressDialog.setButton(getString(R.string.cancel_saving_form),
-					savingButtonListener);
+					cancelSavingButtonListener);
             mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
+					Collect.getInstance()
+					.getActivityLogger()
+					.logInstanceAction(this,
+							"onCreateDialog.SAVING_DIALOG", "OnCancelListener");
                     cancelSaveToDiskTask();
                 }
             });
             mProgressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
+					Collect.getInstance()
+					.getActivityLogger()
+					.logInstanceAction(this,
+							"onCreateDialog.SAVING_DIALOG", "OnDismissListener");
                     cancelSaveToDiskTask();
                 }
             });
@@ -2405,12 +2413,12 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		case FormEntryController.ANSWER_CONSTRAINT_VIOLATED:
 		case FormEntryController.ANSWER_REQUIRED_BUT_EMPTY:
 			refreshCurrentView();
-			
+
 			// get constraint behavior preference value with appropriate default
 			String constraint_behavior = PreferenceManager.getDefaultSharedPreferences(this)
-				.getString(PreferencesActivity.KEY_CONSTRAINT_BEHAVIOR, 
+				.getString(PreferencesActivity.KEY_CONSTRAINT_BEHAVIOR,
 					PreferencesActivity.CONSTRAINT_BEHAVIOR_DEFAULT);
-			
+
 			// an answer constraint was violated, so we need to display the proper toast(s)
 			// if constraint behavior is on_swipe, this will happen if we do a 'swipe' to the next question
 			if (constraint_behavior.equals(PreferencesActivity.CONSTRAINT_BEHAVIOR_ON_SWIPE))
@@ -2418,7 +2426,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 			// otherwise, we can get the proper toast(s) by saving with constraint check
 			else
 				saveAnswersForCurrentScreen(EVALUATE_CONSTRAINTS);
-				
+
 			break;
 		}
 	}
