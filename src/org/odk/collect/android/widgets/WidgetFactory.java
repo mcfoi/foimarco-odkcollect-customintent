@@ -79,6 +79,9 @@ public class WidgetFactory {
                     case Constants.DATATYPE_BARCODE:
                         questionWidget = new BarcodeWidget(context, fep);
                         break;
+                    case Constants.DATATYPE_LAI:
+                        questionWidget = new LAIWidget(context, fep);
+                        break;
                     case Constants.DATATYPE_TEXT:
                     	String query = fep.getQuestion().getAdditionalAttribute(null, "query");
                         if (query != null) {
