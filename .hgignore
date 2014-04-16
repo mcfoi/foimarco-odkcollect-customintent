@@ -10,3 +10,5 @@ gen/
 *.ipr
 *.iws
 *.iml
+.git/*
+.gitignore
