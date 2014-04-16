@@ -81,6 +81,7 @@
 <string name="forms">Blank Forms</string>
 <string name="getting_location">Loading Location</string>
 <string name="get_barcode">Get Barcode</string>
+<string name="get_lai">Get LAI</string>
 <string name="get_forms">Get Blank Form</string>
 <string name="get_location">Record Location</string>
 <string name="provider_disabled_error">Sorry, Location providers are disabled!</string>
@@ -88,6 +89,7 @@
 <string name="jump_to_beginning">Go To Start</string>
 <string name="jump_to_end">Go To End</string>
 <string name="jump_to_previous">Go Up</string>
+<string name="lai_application_error">Sorry, Pocket LAI is not installed!</string>
 <string name="latitude">Latitude</string>
 <string name="leave_repeat_yes">Do Not Add</string>
 <string name="leaving_repeat_ask">Add One More Group?</string>
@@ -119,6 +121,7 @@
 <string name="quit_entry">Save Form and Exit</string>
 <string name="refresh">Refresh</string>
 <string name="replace_barcode">Replace Barcode</string>
+<string name="replace_lai">Replace LAI</string>
 <string name="replace_location">Replace Location</string>
 <string name="required_answer_error">Sorry, this response is required!</string>
 <string name="review_data">Edit Saved Form</string>

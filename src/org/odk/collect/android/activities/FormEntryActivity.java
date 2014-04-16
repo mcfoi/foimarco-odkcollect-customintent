@@ -146,6 +146,9 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 	public static final int ALIGNED_IMAGE = 16;
 	public static final int BEARING_CAPTURE = 17;
     public static final int EX_GROUP_CAPTURE = 18;
+    
+    // Custom Intent Request Code
+	public static final int LAI_CAPTURE = 1024;
 
 	// Extra returned from gp activity
 	public static final String LOCATION_RESULT = "LOCATION_RESULT";
@@ -578,6 +581,13 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 		}
 
 		switch (requestCode) {
+		case LAI_CAPTURE:
+			if (resultCode == Activity.RESULT_OK){
+				String laiString = intent.getStringExtra("eu.marcofoi.android.PocketLAI.LAI");
+				((ODKView) mCurrentView).setBinaryData(laiString);
+				saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
+				break;
+			}
 		case BARCODE_CAPTURE:
 			String sb = intent.getStringExtra("SCAN_RESULT");
 			((ODKView) mCurrentView).setBinaryData(sb);
